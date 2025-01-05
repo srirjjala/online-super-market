@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Update Vegetable Prices</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #3b9d36;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            display: block;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1.1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #3b9d36;
+            color: white;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #308a2c;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Update Vegetable Prices</h1>
+
+    <label for="vegetable">Vegetable Name:</label>
+    <input type="text" id="vegetable" placeholder="Enter vegetable name" />
+
+    <label for="price">Price (per kg):</label>
+    <input type="number" id="price" placeholder="Enter price per kg" />
+
+    <button onclick="updatePrice()">Update Price</button>
+
+    <footer>
+        <p>Prices updated are stored in your browser's local storage.</p>
+    </footer>
+</div>
+
+<script>
+    function updatePrice() {
+        const vegetable = document.getElementById("vegetable").value.trim();
+        const price = parseFloat(document.getElementById("price").value.trim());
+
+        if (!vegetable || isNaN(price)) {
+            alert("Please enter valid data for both vegetable name and price.");
+            return;
+        }
+
+        // Fetch existing prices from localStorage or initialize an empty object
+        const vegetablePrices = JSON.parse(localStorage.getItem("vegetablePrices")) || {};
+
+        // Update or add the new price for the vegetable
+        vegetablePrices[vegetable] = price;
+
+        // Save the updated prices back to localStorage
+        localStorage.setItem("vegetablePrices", JSON.stringify(vegetablePrices));
+
+        alert(`${vegetable} price has been updated to ₹${price} per kg.`);
+        document.getElementById("vegetable").value = "";
+        document.getElementById("price").value = "";
+    }
+</script>
+
+</body>
+</html>
