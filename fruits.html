@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruits Market</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    /* Admin Login Link */
+    .admin-login {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .admin-login:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Fruits Container */
+    .fruits-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    /* Fruit Card */
+    .fruit {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .fruit:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .fruit img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .fruit h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #4CAF50;
+    }
+
+    .fruit p {
+      margin: 10px 0;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    footer a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #4CAF50;
+    }
+
+    /* Login Container */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: rgba(76, 175, 80, 0.1);
+    }
+
+    .login-container form {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    .login-container input {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .login-container button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background-color: #45a049;
+    }
+
+    /* Admin Dashboard */
+    #admin-dashboard {
+      padding: 20px;
+    }
+
+    #add-fruit-form {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #add-fruit-form input {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    #add-fruit-form button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    #add-fruit-form button:hover {
+      background-color: #45a049;
+    }
+
+    /* Delete Button */
+    .delete-btn {
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .delete-btn:hover {
+      background-color: #e65a50;
+    }
+  </style>
+</head>
+<body>
+  <!-- Homepage (Client View) -->
+  <div id="homepage">
+    <header>
+      <h1>Welcome to Our Fruits Market</h1>
+      <a href="#" class="admin-login" onclick="showAdminLogin()">Admin Login</a>
+    </header>
+
+    <div class="fruits-container" id="fruits-container">
+      <!-- Fruits will be dynamically loaded here -->
+    </div>
+
+    <footer>
+      <p>Follow us on:</p>
+      <a href="https://wa.me/63053444547" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/yourinstagram" target="_blank">Instagram</a>
+      <a href="https://facebook.com/yourfacebook" target="_blank">Facebook</a>
+    </footer>
+  </div>
+
+  <!-- Admin Login -->
+  <div id="admin-login" style="display: none;">
+    <div class="login-container">
+      <form id="login-form">
+        <h2>Admin Login</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard -->
+  <div id="admin-dashboard" style="display: none;">
+    <header>
+      <h1>Admin Dashboard</h1>
+      <a href="#" class="admin-login" onclick="showHomepage()">Back to Home</a>
+    </header>
+
+    <div style="padding: 20px;">
+      <form id="add-fruit-form">
+        <input type="text" id="fruit-name" placeholder="Fruit Name" required>
+        <input type="number" id="fruit-quantity" placeholder="Quantity" required>
+        <input type="number" id="fruit-price" placeholder="Price (Today)" required>
+        <input type="file" id="fruit-image" accept="image/*" required>
+        <button type="submit">Add Fruit</button>
+      </form>
+
+      <div id="fruits-list">
+        <!-- Fruits list for admin to delete or update prices -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Local Storage Key
+    const FRUITS_KEY = 'fruits';
+
+    // Show Homepage
+    function showHomepage() {
+      document.getElementById('homepage').style.display = 'block';
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('admin-dashboard').style.display = 'none';
+      loadFruits();
+    }
+
+    // Show Admin Login
+    function showAdminLogin() {
+      document.getElementById('homepage').style.display = 'none';
+      document.getElementById('admin-login').style.display = 'block';
+      document.getElementById('admin-dashboard').style.display = 'none';
+    }
+
+    // Show Admin Dashboard
+    function showAdminDashboard() {
+      document.getElementById('homepage').style.display = 'none';
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('admin-dashboard').style.display = 'block';
+      loadAdminFruits();
+    }
+
+    // Admin Login
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username === 'admin' && password === 'admin') {
+        showAdminDashboard();
+      } else {
+        alert('Invalid username or password');
+      }
+    });
+
+    // Add Fruit
+    document.getElementById('add-fruit-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('fruit-name').value;
+      const quantity = document.getElementById('fruit-quantity').value;
+      const price = document.getElementById('fruit-price').value;
+      const image = document.getElementById('fruit-image').files[0];
+
+      if (image) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const fruit = {
+            id: Date.now(),
+            name,
+            quantity,
+            price,
+            image: e.target.result
+          };
+
+          // Save to Local Storage
+          const fruits = JSON.parse(localStorage.getItem(FRUITS_KEY)) || [];
+          fruits.push(fruit);
+          localStorage.setItem(FRUITS_KEY, JSON.stringify(fruits));
+
+          alert('Fruit added successfully!');
+          document.getElementById('add-fruit-form').reset();
+          loadAdminFruits();
+        };
+        reader.readAsDataURL(image);
+      }
+    });
+
+    // Load Fruits for Client View
+    function loadFruits() {
+      const fruits = JSON.parse(localStorage.getItem(FRUITS_KEY)) || [];
+      const container = document.getElementById('fruits-container');
+      container.innerHTML = '';
+
+      fruits.forEach(fruit => {
+        const fruitDiv = document.createElement('div');
+        fruitDiv.className = 'fruit';
+        fruitDiv.innerHTML = `
+          <img src="${fruit.image}" alt="${fruit.name}">
+          <h3>${fruit.name}</h3>
+          <p>Quantity: ${fruit.quantity}</p>
+          <p>Price: $${fruit.price}</p>
+        `;
+        container.appendChild(fruitDiv);
+      });
+    }
+
+    // Load Fruits for Admin View
+    function loadAdminFruits() {
+      const fruits = JSON.parse(localStorage.getItem(FRUITS_KEY)) || [];
+      const container = document.getElementById('fruits-list');
+      container.innerHTML = '';
+
+      fruits.forEach(fruit => {
+        const fruitDiv = document.createElement('div');
+        fruitDiv.className = 'fruit';
+        fruitDiv.innerHTML = `
+          <img src="${fruit.image}" alt="${fruit.name}" style="width: 100px;">
+          <h3>${fruit.name}</h3>
+          <p>Quantity: ${fruit.quantity}</p>
+          <p>Price: $${fruit.price}</p>
+          <input type="number" id="price-${fruit.id}" placeholder="New Price">
+          <button onclick="updatePrice(${fruit.id})">Update Price</button>
+          <button class="delete-btn" onclick="deleteFruit(${fruit.id})">Delete</button>
+        `;
+        container.appendChild(fruitDiv);
+      });
+    }
+
+    // Update Price
+    function updatePrice(id) {
+      const newPrice = document.getElementById(`price-${id}`).value;
+      if (!newPrice) {
+        alert('Please enter a valid price.');
+        return;
+      }
+
+      const fruits = JSON.parse(localStorage.getItem(FRUITS_KEY)) || [];
+      const updatedFruits = fruits.map(fruit => {
+        if (fruit.id === id) {
+          fruit.price = newPrice;
+        }
+        return fruit;
+      });
+
+      localStorage.setItem(FRUITS_KEY, JSON.stringify(updatedFruits));
+      loadAdminFruits();
+      alert('Price updated successfully!');
+    }
+
+    // Delete Fruit
+    function deleteFruit(id) {
+      const fruits = JSON.parse(localStorage.getItem(FRUITS_KEY)) || [];
+      const updatedFruits = fruits.filter(fruit => fruit.id !== id);
+      localStorage.setItem(FRUITS_KEY, JSON.stringify(updatedFruits));
+      loadAdminFruits();
+      alert('Fruit deleted successfully!');
+    }
+
+    // Initial Load
+    showHomepage();
+  </script>
+</body>
+</html>
